@@ -23,8 +23,9 @@ function draw() {
 function keyPressed(){
   //this is a special EVENT function, gets automatically called eanytime a keyboard button is pressed
   print("key was pressed")
+  circleColor = !circleColor 
 
-  circleColor = !circleColor
+  //how to tell whichkey was pressed
 }
 
 function challenge(){
