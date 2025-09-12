@@ -25,7 +25,7 @@ function keyPressed(){
   print("key was pressed")
   circleColor = !circleColor 
 
-  //how to tell whichkey was pressed
+  //how to tell which key was pressed
 }
 
 function challenge(){
