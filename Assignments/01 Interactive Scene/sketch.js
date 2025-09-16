@@ -29,7 +29,7 @@ function drawMountains(){
   // Draw mountains in the background
   noStroke();
   fill(0,255,0);
-  triangle(0,height*2/3, width/5, height*2/3, width/10, height*1/3);
+  triangle(0,400, 500, 450, 200, 230);
 }
 
 function drawMoon(){
