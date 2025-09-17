@@ -1,21 +1,31 @@
 // Interactive Scene
 // Adrian Chan
 // 16 September, 2025
-//
-// Extra for Experts:
-// - describe what you did to take this project "above and beyond"
 
+// GLOBAL VARIABLES
+let moonSunColor
 
 function setup() {
   createCanvas(1900, 950);
+  moonSunColor = color(247, 247, 146)
 }
 
 function draw() {
   background(220);
-  
+  drawMoonSun();
   drawMountains();
-  drawMoon();
+  drawLake();
+  
   mouseReport();
+}
+
+function keyPressed(){
+  // Check if any keys are pressed
+  if (key === " "){
+    if moonSunColor = color(247, 247, 146){
+      
+    }
+  }
 }
 
 function mouseReport() {
@@ -28,13 +38,29 @@ function mouseReport() {
 function drawMountains(){
   // Draw mountains in the background
   noStroke();
-  fill(0,255,0);
-  triangle(0,400, 500, 450, 200, 230);
+  fill(15,150,50);
+  triangle(0, 400, 500, 450, 200, 230);
+  triangle(350, 350, 800, 400, 700, 150);
+  triangle(700, 430, 1100, 450, 900, 230);
+  triangle(1000, 470, 1550, 450, 1380, 210);
+  triangle(1400, 400, width, 450, 1650, 230);
+  triangle(1800, 400, width, 450, width, 350);
+  rect(0, 400, 1050, 150);
+  rect(1050, 450, width, 100);
+  rect(1500, 400, 400, 150);
+  rect(350, 350, 400, 100);
 }
 
-function drawMoon(){
-  // Draw moon and allow it to follow the mouse
+function drawLake(){
   noStroke();
-  fill(247,247, 146)
-  circle(mouseX, mouseY, width/15)
+  fill(0,0, 112)
+  rect(0, 500, width, height)
+}
+
+function drawMoonSun(){
+  // Draw moon and allow it to follow the mouse
+  // Moon changes to sun if space pressed
+  noStroke();
+  fill(moonSunColor);
+  circle(mouseX, mouseY, width/15);
 }
