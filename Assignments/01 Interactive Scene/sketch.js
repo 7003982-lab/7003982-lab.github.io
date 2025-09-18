@@ -3,11 +3,14 @@
 // 16 September, 2025
 
 // GLOBAL VARIABLES
-let moonSunColor
+let moonSunColor;
+let moonColorState = 0;
+let currentBack = 0;
 
 function setup() {
   createCanvas(1900, 950);
   moonSunColor = color(247, 247, 146)
+  
 }
 
 function draw() {
@@ -15,18 +18,30 @@ function draw() {
   drawMoonSun();
   drawMountains();
   drawLake();
-  
+  printName();  
   mouseReport();
+}
+
+function printName(){
+  fill(255,255,255);
+  text("Adrian Chan", 1750, 925)
 }
 
 function keyPressed(){
   // Check if any keys are pressed
   if (key === " "){
-    if moonSunColor = color(247, 247, 146){
-      
+    if (moonColorState === 0){
+      moonColorState ++
+      moonSunColor = color(255,150,0)
     }
+    else if (moonColorState === 1){
+      moonColorState = 0
+      moonSunColor = color(247, 247, 146) 
+    }
+    
   }
 }
+
 
 function mouseReport() {
   fill(0);
@@ -34,6 +49,23 @@ function mouseReport() {
   textSize(20);
   text(src, mouseX, mouseY);
 }
+
+function changeBackground(){
+  switch(currentBack){
+    case 0:
+      background(220);
+      break;
+    case 1:
+      background(0);
+      break;
+    case 2:
+      background(255);
+      break;
+    case 3:
+      background(100)
+  }
+}
+
 
 function drawMountains(){
   // Draw mountains in the background
