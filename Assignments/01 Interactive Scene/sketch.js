@@ -9,36 +9,50 @@ let currentBack = 0;
 
 function setup() {
   createCanvas(1900, 950);
-  moonSunColor = color(247, 247, 146)
+  moonSunColor = color(250, 250, 220)
   
 }
 
 function draw() {
-  background(220);
+  background(color(0,185,255));
+  changeBackground();
   drawMoonSun();
   drawMountains();
   drawLake();
   printName();  
-  mouseReport();
+  //mouseReport();
+  
 }
 
 function printName(){
+  // Adding name on the bottom right
   fill(255,255,255);
-  text("Adrian Chan", 1750, 925)
+  text("Adrian Chan", 1800, 925)
 }
 
 function keyPressed(){
   // Check if any keys are pressed
-  if (key === " "){
+  if (key === " "){   // Changes moon color if space is pressed
     if (moonColorState === 0){
       moonColorState ++
       moonSunColor = color(255,150,0)
     }
     else if (moonColorState === 1){
       moonColorState = 0
-      moonSunColor = color(247, 247, 146) 
+      moonSunColor = color(255, 255, 220) 
     }
-    
+  }
+}
+       
+function mousePressed(){
+  // Check if any mouse buttons are pressed
+  if (mouseButton === CENTER){
+    if (currentBack < 3){
+      currentBack ++
+    }
+    else{
+      currentBack = 0
+    }
   }
 }
 
@@ -51,18 +65,19 @@ function mouseReport() {
 }
 
 function changeBackground(){
+  // Set up for background color change
   switch(currentBack){
     case 0:
-      background(220);
+      background(color(0,185,255));
       break;
     case 1:
-      background(0);
+      background(color(240,105,0));
       break;
     case 2:
-      background(255);
+      background(color(0,30,70));
       break;
     case 3:
-      background(100)
+      background(color(250,250,180));
   }
 }
 
@@ -84,8 +99,9 @@ function drawMountains(){
 }
 
 function drawLake(){
+  // Draw the lake
   noStroke();
-  fill(0,0, 112)
+  fill(0,0, 112);
   rect(0, 500, width, height)
 }
 
