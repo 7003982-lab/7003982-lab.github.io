@@ -1,7 +1,6 @@
-// Working with Images, random(), Noise()
+// Working with random(), Noise()
 // Adrian Chan
 // September 24, 2025
-//
 
 // GLOBAL VARIABLES
 let x1, y1, x2, y2;
