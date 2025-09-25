@@ -22,7 +22,7 @@ async function loadAssets(){
 function draw() {
   background(220);
   // Update direction
-  if (pmouseX < mouseX){
+  if (pmouseX < mouseX){    // pmouseX = x position of mouse 1 frame ago
     facingRight = true;
   }
   else if (pmouseX > mouseX){
