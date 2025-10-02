@@ -52,7 +52,7 @@ function generateTerrain(){
     // Generate random height
     // Change from random to noise
     rectHeight = noise(noiseTime);
-    rectHeight = map(rectHeight, 0, 1, height*0.1, height*0.9);
+    rectHeight = map(rectHeight, 0, 1, height*0.2, height*0.9);
     
     // Calculate the upper-right corner of rect
     let x2 = x + rectWidth;
@@ -96,7 +96,7 @@ function drawFlag(x, y){
   rect(x, y, 1, height*-0.05);
   noStroke();
   fill(255, 0, 0)
-  triangle(x+1.5, y+height*-0.05, x+1.5, y+height*-0.03, x+width*0.03, y+height*-0.04);
+  triangle(x+1.5, y+height*-0.05, x+1.5, y+height*-0.03, x+height*0.03, y+height*-0.04);
 }
 
 function drawAverage(y){
