@@ -77,7 +77,7 @@ function generateTerrain(){
   }
 
   // Call the function to draw the average line
-  drawAverage(averageY)
+  drawAverage(averageY);
 
   // Call the function to draw flag on the peak
   drawFlag(peakX, peakY);
