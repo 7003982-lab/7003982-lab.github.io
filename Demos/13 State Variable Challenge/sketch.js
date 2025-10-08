@@ -15,9 +15,37 @@ function setup() {
 function draw() {
   background(220);
   drawSquare();
+  if (directionState<=3){
+    directionState ++
+  }
+  else if(directionState > 3){
+    directionState = 0;
+  }
 }
 
 function drawSquare(){
-  fill(150)
+  // Draw Square
+  fill(150);
   square(x, y, squareSize);
+
+  // Movement
+  switch(directionState){
+    case 0:
+      for (x = 0; x<=width-squareSize; x++){
+        square(x, y, squareSize);
+      }
+    case 1:
+      for (y = 0; y<=height-squareSize; y++){
+        square(x, y, squareSize);
+      }
+    case 2:
+      for (x = width-squareSize; x>=0; x--){
+        square(x, y, squareSize);
+      }
+    case 3:
+      for (y = height-squareSize; y>=0; y--){
+        square(x, y, squareSize);
+      }
+  }
+
 }
