@@ -10,7 +10,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   myBook = new Book ("CS30 Text", "Mr. Scott", 123456789011, "leatherbound", 515, width*0.3);
   for(let b = 0; b<20; b++){
-    bookshelf.push(new Book("A", "Adrian", random(1000000000000, 9999999999999), "softcover", random(300, 500), width*b/20))
+    bookshelf.push(new Book("B", "Adrian", random(1000000000000, 9999999999999), "softcover", random(300, 500), width*b/20))
   }
   
 }
