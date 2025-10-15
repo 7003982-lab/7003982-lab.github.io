@@ -15,12 +15,9 @@ function setup() {
 
 function draw() {
   background(220);
-<<<<<<< HEAD
   myBall.move();
   myBall.display();
-=======
-  
->>>>>>> 28cd70f1d3725b2dbb884db87b344d29c4400a23
+
 
   // Add a new object to array
   if (mouseIsPressed){
@@ -29,12 +26,8 @@ function draw() {
 
   // Process collection of objects
   for (let b of ballCollection){
-<<<<<<< HEAD
-    
-=======
     b.move();
     b.display();
->>>>>>> 28cd70f1d3725b2dbb884db87b344d29c4400a23
   }
 }
 
