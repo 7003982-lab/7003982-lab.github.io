@@ -60,7 +60,7 @@ class Planet{
   // Class methods
   display(){
     // Draw planets and all of its moons
-  for (let a = this.s)
+  
     circle(this.x, this.y, this.s);
 
     // Moons
