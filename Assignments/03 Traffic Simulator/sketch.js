@@ -5,21 +5,31 @@
 // GLOBAL VARIABLES
 let eastbound = [];
 let westbound = [];
+let car;
+let car1;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  angleMode(DEGREES);
+  car = new Cars (200, 0, 0);
+  car1 = new Cars (100, 1, 1);
 }
 
 function draw() {
   background(200);
   drawRoad();
+  
+  car.move();
+  car1.move();
+  car.display();
+  car1.display();
 }
 
 
 
 function drawRoad(){
   
-  // Draw Pavement
+  // Draw Road
   rectMode(CENTER);
   noStroke();
   fill(50);
@@ -36,18 +46,77 @@ function drawRoad(){
 
 class Cars{
   // Constructor
-  constructor(x, y, type){
+  constructor(x, type, direction){
+    this.direction = direction  // 0-> westbound  1-> eastbound
     this.x = x;
-    this.y = y;
-    this.type = type;
+    if (this.direction === 0){
+      this.y = random(height*0.25, height*0.45);
+    }
+    else if (this.direction === 1){
+      this.y = random(height*0.55, height*0.75);
+    }
+    
+    this.type = type;   // Math.floor(random(0,2))
     this.xSpeed = random(1, 15);
     this.color = color(random(255), random(255), random(255));
+    
   }
 
   // Class Methods
   display(){
     noStroke();
     fill(this.color);
+    if (this.type === 0){   // 0->car 1->truck
+      rect(this.x, this.y, 60, 30);
+      fill(0);
+      rect(this.x-20, this.y-20, 15, 5);
+      rect(this.x+20, this.y-20, 15, 5);
+      rect(this.x-20, this.y+20, 15, 5);
+      rect(this.x+20, this.y+20, 15, 5);
+    }
+    if (this.type === 1){
+      push();
+      if (this.direction === 1){
+        translate(this.x, this.y)
+        rotate(180);
+      }
+      rect(0, 0, 80, 40);
+      fill(255)
+      rect(0-28, 0, 15, 30);
+      fill(0);
+      rect(0-15, 0, 2, 40)
+      pop();
+    }
+  }
+
+  move(){
     
+    if (this.direction === 0){
+      this.x -= this.xSpeed;
+      if(this.x<0){
+        this.x = width;
+      }
+    }
+    if (this.direction === 1){
+      this.x += this.xSpeed;
+      if(this.x>width){
+        this.x = 0;
+      }
+    }
+  }
+
+  speedUp(){
+
+  }
+
+  speedDown(){
+
+  }
+
+  changeColor(){
+    colorPer = Math.floor(random(0,100));
+    if (colorPer === 25){
+      this.color = color(random(255), random(255), random(255));
+    }
   }
 }
