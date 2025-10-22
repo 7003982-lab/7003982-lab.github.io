@@ -5,30 +5,47 @@
 // GLOBAL VARIABLES
 let eastbound = [];
 let westbound = [];
-let car;
-let car1;
+// let car;
+// let car1;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   angleMode(DEGREES);
-  car = new Cars (200, 0, 0);
-  car1 = new Cars (100, 1, 1);
+  // car = new Cars (200, 0, 0);
+  // car1 = new Cars (100, 1, 1);
+  for (let i = 0; i<20; i++){
+    westbound.push(new Cars(random(width), Math.floor(random(0,2)), 0));
+    eastbound.push(new Cars(random(width), Math.floor(random(0,2)), 1));
+  }
 }
 
 function draw() {
   background(200);
   drawRoad();
   
-  car.move();
-  car1.move();
-  car.display();
-  car1.display();
+  for(let w of westbound){
+    w.action();
+  }
+  for(let e of eastbound){
+    e.action();
+  }
+  // car.action();
+  // car1.action();
+  
 }
 
-
+function mousePressed(){
+  // regular click = add an eastbound car
+  // Shift click = add a westbound car
+  if (keyIsPressed && keyCode === SHIFT){
+    westbound.push(new Cars(random(width), Math.floor(random(0,2)), 0));
+  }
+  else{
+    eastbound.push(new Cars(random(width), Math.floor(random(0,2)), 1));
+  }
+}
 
 function drawRoad(){
-  
   // Draw Road
   rectMode(CENTER);
   noStroke();
@@ -41,7 +58,6 @@ function drawRoad(){
   for (let i = 0; i < width; i += 150){
     rect(i, height/2, 100, 15);
   }
-  
 }
 
 class Cars{
@@ -57,9 +73,8 @@ class Cars{
     }
     
     this.type = type;   // Math.floor(random(0,2))
-    this.xSpeed = random(1, 15);
+    this.xSpeed = Math.floor(random(1, 15));
     this.color = color(random(255), random(255), random(255));
-    
   }
 
   // Class Methods
@@ -76,8 +91,8 @@ class Cars{
     }
     if (this.type === 1){
       push();
+      translate(this.x, this.y)
       if (this.direction === 1){
-        translate(this.x, this.y)
         rotate(180);
       }
       rect(0, 0, 80, 40);
@@ -93,30 +108,56 @@ class Cars{
     
     if (this.direction === 0){
       this.x -= this.xSpeed;
-      if(this.x<0){
-        this.x = width;
+      if(this.x<-50){
+        this.x = width+50;
       }
     }
     if (this.direction === 1){
       this.x += this.xSpeed;
-      if(this.x>width){
-        this.x = 0;
+      if(this.x>width+50){
+        this.x = -50;
       }
     }
   }
 
   speedUp(){
-
+    let speedPer = Math.floor(random(0,100));
+    if (speedPer === 50){
+      if (this.xSpeed < 15){
+        this.xSpeed += 1;
+      }
+    }
+        
   }
 
   speedDown(){
-
+    let speedPer = Math.floor(random(0,100));
+    if (speedPer === 75){
+      if (this.xSpeed > 0){
+        this.xSpeed -= 1;
+      }
+    }
   }
 
   changeColor(){
-    colorPer = Math.floor(random(0,100));
+    let colorPer = Math.floor(random(0,100));
     if (colorPer === 25){
       this.color = color(random(255), random(255), random(255));
     }
+  }
+
+  action(){
+    this.move();
+    this.display();
+    this.speedUp();
+    this.speedDown();
+    this.changeColor();
+  }
+}
+
+class TrafficLight{
+  // Constructor
+  constructor(){
+
   }
 }
