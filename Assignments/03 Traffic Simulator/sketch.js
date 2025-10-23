@@ -7,6 +7,7 @@ let eastbound = [];
 let westbound = [];
 // let car;
 // let car1;
+let trafficLight;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -17,6 +18,7 @@ function setup() {
     westbound.push(new Cars(random(width), Math.floor(random(0,2)), 0));
     eastbound.push(new Cars(random(width), Math.floor(random(0,2)), 1));
   }
+  trafficLight = new TrafficLight();
 }
 
 function draw() {
@@ -31,7 +33,8 @@ function draw() {
   }
   // car.action();
   // car1.action();
-  
+  trafficLight.display();
+
 }
 
 function mousePressed(){
@@ -42,6 +45,12 @@ function mousePressed(){
   }
   else{
     eastbound.push(new Cars(random(width), Math.floor(random(0,2)), 1));
+  }
+}
+
+function keyIsPressed(){
+  if (keyCode === SPACE){
+    trafficLight.redLight();
   }
 }
 
@@ -157,7 +166,33 @@ class Cars{
 
 class TrafficLight{
   // Constructor
-  constructor(){
-
+  constructor(red){
+    this.x = width/2;
+    this.y = height*0.1;
+    this.d = height*0.15;
+    this.red = red;
+    this.frame = 120;
   }
+
+  // Class Methods
+  display(){
+    stroke(0)
+    strokeWeight(5);
+    if (this.red === false){
+      fill(0, 255, 0);
+    }
+    else if (this.red === true){
+      if(this.frame>0){
+        fill(255, 0, 0);
+        this.frame -= 1;
+      }
+    } 
+    circle(this.x, this.y, this.d);
+  }
+
+  redLight(){
+    
+    
+  }
+
 }
