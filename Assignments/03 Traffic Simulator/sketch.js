@@ -18,7 +18,7 @@ function setup() {
     westbound.push(new Cars(random(width), Math.floor(random(0,2)), 0));
     eastbound.push(new Cars(random(width), Math.floor(random(0,2)), 1));
   }
-  trafficLight = new TrafficLight();
+  trafficLight = new TrafficLight(false);
 }
 
 function draw() {
@@ -48,8 +48,8 @@ function mousePressed(){
   }
 }
 
-function keyIsPressed(){
-  if (keyCode === SPACE){
+function keyPressed(){
+  if (key === " "){
     trafficLight.redLight();
   }
 }
@@ -114,19 +114,22 @@ class Cars{
   }
 
   move(){
-    
-    if (this.direction === 0){
-      this.x -= this.xSpeed;
-      if(this.x<-50){
-        this.x = width+50;
+
+    if (trafficLight.red===false){
+      if (this.direction === 0){
+        this.x -= this.xSpeed;
+        if(this.x<-50){
+          this.x = width+50;
+        }
       }
+      if (this.direction === 1){
+        this.x += this.xSpeed;
+        if(this.x>width+50){
+          this.x = -50;
+        }
+      } 
     }
-    if (this.direction === 1){
-      this.x += this.xSpeed;
-      if(this.x>width+50){
-        this.x = -50;
-      }
-    }
+      
   }
 
   speedUp(){
@@ -180,18 +183,22 @@ class TrafficLight{
     strokeWeight(5);
     if (this.red === false){
       fill(0, 255, 0);
+      this.frame = 120;
     }
-    else if (this.red === true){
+    else{
       if(this.frame>0){
         fill(255, 0, 0);
         this.frame -= 1;
+      }
+      else{
+        this.red = false;
       }
     } 
     circle(this.x, this.y, this.d);
   }
 
   redLight(){
-    
+    this.red = true; 
     
   }
 
