@@ -4,11 +4,11 @@
 
 // GLOBAL VARIABLES
 let grid =[
-  [0, 0, 0, 255, 0],
-  [255, 0, 255, 0, 255],
-  [255, 255, 0, 255, 255],
-  [0, 255, 0, 0, 0],
-  [0, 255, 0, 0, 0]
+  [255, 255, 255, 255, 255],
+  [255, 255, 0, 0, 0],
+  [0, 255, 0, 255, 0],
+  [0, 0, 0, 0, 0],
+  [0, 0, 255, 0, 0]
 ];
 let rows = grid.length;
 let colms = grid[0].length;
@@ -33,6 +33,12 @@ function mousePressed(){
     let x = getCurrentX();
     let y = getCurrentY();
     flip(x, y);
+    if (x+1 < colms){
+      flip(x+1, y);
+    }
+    if (y-1 >= 0){
+      flip(x, y-1);
+    }
   }
   
 }
