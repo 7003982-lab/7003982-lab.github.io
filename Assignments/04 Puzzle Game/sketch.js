@@ -5,8 +5,8 @@
 // GLOBAL VARIABLES
 let grid = [
   [255, 255, 255, 255, 255],
-  [255, 255, 0, 0, 0],
-  [0, 255, 0, 255, 0],
+  [0, 0, 0, 0, 0],
+  [255, 255, 255, 255, 255],
   [0, 0, 0, 0, 0]
 ]
 let rows = grid.length;
@@ -20,12 +20,14 @@ function setup() {
   textSize(width/10);
   rectWidth = width/colms;
   rectHeight = height/rows;
+  randomColor();
 }
 
 function draw() {
   //background(220);
   drawGrid();
   win();
+  overlay();
 }
 
 function mousePressed(){
@@ -58,6 +60,15 @@ function mousePressed(){
       
   }
   
+}
+
+function randomColor(){
+  // Randomize the rectangle color
+  for (let y = 0; y<rows; y++){
+    for (let x = 0; x<colms; x++){
+      grid[y][x] = floor(random(2))*255;
+    }
+  }
 }
 
 
@@ -113,4 +124,37 @@ function win(){
     fill(0);
   }
   text("YOU WIN!", width/2, height/2)
+}
+
+function overlay(){
+  // Create colored overlay to indicate affected rectangles
+  if(mouseX<=width && mouseY<= height){
+    let x = getCurrentX();
+    let y = getCurrentY();
+    fill(0, 255, 0, 50);
+    if (keyIsDown(SHIFT)){
+      rect(x*rectWidth, y*rectHeight, rectWidth, rectHeight);
+    }
+    else{
+      rect(x*rectWidth, y*rectHeight, rectWidth, rectHeight);
+
+      if (x+1 < colms){ // Flip tile on right
+        rect((x+1)*rectWidth, y*rectHeight, rectWidth, rectHeight);
+      }
+      if (x-1 >= 0){  // Flip tile on left
+        rect((x-1)*rectWidth, y*rectHeight, rectWidth, rectHeight);
+      }
+
+      if (y-1 >= 0){  // Flip tile on top
+        rect(x*rectWidth, (y-1)*rectHeight, rectWidth, rectHeight);
+      }
+      if (y+1 < height){  // Flip tile on bottom
+        rect(x*rectWidth, (y+1)*rectHeight, rectWidth, rectHeight);
+      }
+    }
+  }
+}
+
+function arrangement(){
+  // Changes the flipping pattern 
 }
