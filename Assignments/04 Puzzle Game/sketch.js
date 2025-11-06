@@ -13,6 +13,7 @@ let rows = grid.length;
 let colms = grid[0].length;
 let rectWidth;
 let rectHeight;
+let patternState = 0; // 0-> cross  1->rectangle
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -41,25 +42,20 @@ function mousePressed(){
       flip(x, y); 
     }
     else{
-      flip(x, y); 
-
-      if (x+1 < colms){ // Flip tile on right
-        flip(x+1, y);
-      }
-      if (x-1 >= 0){  // Flip tile on left
-        flip(x-1, y);
-      }
-
-      if (y-1 >= 0){  // Flip tile on top
-        flip(x, y-1);
-      }
-      if (y+1 < height){  // Flip tile on bottom
-        flip(x, y+1);
-      }
+      arrangement();
     }
-      
   }
-  
+}
+
+function keyPressed(){
+  if(key === " "){
+    if (patternState === 0){
+      patternState ++;
+    }
+    else if (patternState === 1){
+      patternState = 0;
+    }
+  }
 }
 
 function randomColor(){
@@ -135,21 +131,36 @@ function overlay(){
     if (keyIsDown(SHIFT)){
       rect(x*rectWidth, y*rectHeight, rectWidth, rectHeight);
     }
-    else{
+    else if(patternState === 0){
       rect(x*rectWidth, y*rectHeight, rectWidth, rectHeight);
 
-      if (x+1 < colms){ // Flip tile on right
+      if (x+1 < colms){ // Overlay tile on right
         rect((x+1)*rectWidth, y*rectHeight, rectWidth, rectHeight);
       }
-      if (x-1 >= 0){  // Flip tile on left
+      if (x-1 >= 0){  // Overlay tile on left
         rect((x-1)*rectWidth, y*rectHeight, rectWidth, rectHeight);
       }
 
-      if (y-1 >= 0){  // Flip tile on top
+      if (y-1 >= 0){  // Overlay tile on top
         rect(x*rectWidth, (y-1)*rectHeight, rectWidth, rectHeight);
       }
-      if (y+1 < height){  // Flip tile on bottom
+      if (y+1 < rows){  // Overlay tile on bottom
         rect(x*rectWidth, (y+1)*rectHeight, rectWidth, rectHeight);
+      }
+    }
+    else if(patternState === 1){
+      rect(x*rectWidth, y*rectHeight, rectWidth, rectHeight);
+
+      if (x+1 < colms){ // Overlay tile on right
+        rect((x+1)*rectWidth, y*rectHeight, rectWidth, rectHeight);
+      }
+
+      if (y+1 < rows){  // Overlay tile on bottom
+        rect(x*rectWidth, (y+1)*rectHeight, rectWidth, rectHeight);
+      }
+
+      if (x+1 < colms && y+1 < rows){  // Overlay tile on bottom right
+        rect((x+1)*rectWidth, (y+1)*rectHeight, rectWidth, rectHeight);
       }
     }
   }
@@ -157,4 +168,39 @@ function overlay(){
 
 function arrangement(){
   // Changes the flipping pattern 
+  let x = getCurrentX();
+  let y = getCurrentY();
+  switch(patternState){
+    case 0:
+      flip(x, y); 
+
+      if (x+1 < colms){ // Flip tile on right
+        flip(x+1, y);
+      }
+      if (x-1 >= 0){  // Flip tile on left
+        flip(x-1, y);
+      }
+
+      if (y-1 >= 0){  // Flip tile on top
+        flip(x, y-1);
+      }
+      if (y+1 < rows){  // Flip tile on bottom
+        flip(x, y+1);
+      }
+      break;
+    case 1:
+      flip(x, y); 
+
+      if (x+1 < colms){ // Flip tile on right
+        flip(x+1, y);
+      }
+
+      if (y+1 < rows){  // Flip tile on bottom
+        flip(x, y+1);
+      }
+
+      if (x+1 < colms && y+1 < rows){ // Flip tile on bottom right
+        flip(x+1, y+1);
+      }
+  }
 }
