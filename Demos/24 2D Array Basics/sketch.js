@@ -46,7 +46,7 @@ function mousePressed(){
 
 function renderGrid(){
   // Interpret the information in the 2D array
-  // Draw a grid of squares on the creen to reflect it
+  // Draw a grid of squares on the screen to reflect it
   for (let y = 0; y<rows; y++){
     for (let x = 0; x<colms; x++){
       let fillColor = grid[y][x];
