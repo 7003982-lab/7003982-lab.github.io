@@ -25,7 +25,6 @@ function setup() {
 }
 
 function draw() {
-  //background(220);
   drawGrid();
   win();
   overlay();
@@ -48,6 +47,7 @@ function mousePressed(){
 }
 
 function keyPressed(){
+  // Changes the pattern when space is pressed
   if(key === " "){
     if (patternState === 0){
       patternState ++;
@@ -129,10 +129,10 @@ function overlay(){
     let y = getCurrentY();
     fill(0, 255, 0, 50);
     if (keyIsDown(SHIFT)){
-      rect(x*rectWidth, y*rectHeight, rectWidth, rectHeight);
+      rect(x*rectWidth, y*rectHeight, rectWidth, rectHeight); // Overlay tile mouse is on
     }
     else if(patternState === 0){
-      rect(x*rectWidth, y*rectHeight, rectWidth, rectHeight);
+      rect(x*rectWidth, y*rectHeight, rectWidth, rectHeight); // Overlay tile mouse is on
 
       if (x+1 < colms){ // Overlay tile on right
         rect((x+1)*rectWidth, y*rectHeight, rectWidth, rectHeight);
@@ -149,7 +149,7 @@ function overlay(){
       }
     }
     else if(patternState === 1){
-      rect(x*rectWidth, y*rectHeight, rectWidth, rectHeight);
+      rect(x*rectWidth, y*rectHeight, rectWidth, rectHeight); // Overlay tile mouse is on
 
       if (x+1 < colms){ // Overlay tile on right
         rect((x+1)*rectWidth, y*rectHeight, rectWidth, rectHeight);
@@ -172,7 +172,7 @@ function arrangement(){
   let y = getCurrentY();
   switch(patternState){
     case 0:
-      flip(x, y); 
+      flip(x, y); // Flip tile mouse is on
 
       if (x+1 < colms){ // Flip tile on right
         flip(x+1, y);
@@ -189,7 +189,7 @@ function arrangement(){
       }
       break;
     case 1:
-      flip(x, y); 
+      flip(x, y); // Flip tile mouse is on
 
       if (x+1 < colms){ // Flip tile on right
         flip(x+1, y);
