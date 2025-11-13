@@ -5,17 +5,25 @@
 // Global Variables
 
 let pilot;
-
+let started;
 
 function setup() {
   loadAssets();
   createCanvas(891, 892);
-  
   pixelDensity(1);
 }
 
 async function loadAssets(){
-  pilot = await loadImage("assets/aviator.png");
+  //pilot = await loadImage("assets/aviator.png");
+  pilot = await createVideo("assets/bball.mp4");
+  pilot.hide();
+  
+}
+
+function mousePressed(){
+  started = true;
+  resizeCanvas(pilot.width, pilot.height, false);
+  pilot.loop();
 }
 
 function setPixelColor(pos, r, g, b){
@@ -34,29 +42,42 @@ function setPixel(x, y, r, g, b){
 }
 
 function draw() {
-  image(pilot, 0, 0);
-  loadPixels(); // Fill the "canvas" pixels array
-  // pixels[0] = 255;
-  // pixels[1] = 0;
-  // pixels[2] = 0;
-  // setPixelColor(8, 0, 255, 0);
-  // setPixel(10, 10, 0, 0, 255);
+  if (started){
+    image(pilot, 0, 0);
+    loadPixels(); // Fill the "canvas" pixels array
+    // pixels[0] = 255;
+    // pixels[1] = 0;
+    // pixels[2] = 0;
+    // setPixelColor(8, 0, 255, 0);
+    // setPixel(10, 10, 0, 0, 255);
 
-  // Run a filter to modify the pixel array
-  //boost();
-  //greyScale();
-  background(0);
-  textImage();
-  //updatePixels();
+    // Run a filter to modify the pixel array
+    //boost();
+    //greyScale();
+    background(0);
+    textImage();
+    //updatePixels();
+  }
+  else{
+    textSize(20);
+    text("Click to Start", width/2, height/2);
+  }
+  
 }
 
 function textImage(){
   // Render an image using characters
   fill(255);
-  for (let x =0; x<width; x+=10){
-    for (let y =0; y<width; y+=10){
+  let scaleAmount = 5;
+  textSize(scaleAmount);
+  for (let x =0; x<width; x+=scaleAmount){
+    for (let y =0; y<width; y+=scaleAmount){
       let avg = getAverage(x, y);
-      if(avg > 200)
+      if(avg > 220) text("&", x, y);
+      else if(avg > 180)  text("O", x, y);
+      else if(avg > 140)  text("/", x, y);
+      else if(avg > 100)  text("=", x, y);
+      else if(avg > 40)  text(",", x, y);
     }
   
   }
