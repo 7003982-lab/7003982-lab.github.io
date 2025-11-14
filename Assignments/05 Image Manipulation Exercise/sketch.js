@@ -11,7 +11,7 @@ let i, r, g, b;
 
 function setup() {
   loadAssets();
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(600, 600);
   pixelDensity(1);
 }
 
@@ -24,8 +24,17 @@ async function loadAssets(){
 
 function draw() {
   background(220);
-  image(chip, 0, 0);
+  //image(chip, 0, 0);
+  //image(race, 0, 0);
+  //image(nuit, 0, 0);
+  image(hand, 0, 0);
   loadPixels();
+  //mainColor();
+  //noGreen();
+  //fiveColor();
+  //mirror();
+  rotateImg();
+  updatePixels();
 }
 
 function setPixel(x, y, r, g, b){
@@ -70,9 +79,56 @@ function mainColor(){
       else if(g>r && g>b){
         setPixel(x, y, 0, 255, 0);
       }
-      else if(b>r && b>g){
+      else {
         setPixel(x, y, 0, 0, 255);
       }
+    }
+  }
+}
+
+function noGreen(){
+  for(let x = 0; x<width; x++){
+    for(let y = 0; y<height; y++){
+      if(x>=width/2){
+        getRGB(x, y);
+        setPixel(x, y, r, 0, b);
+      }
+    }
+  }
+}
+
+function fiveColor(){
+  for(let x=0; x<width; x++){
+    for(let y = 0; y<height;y++){
+      let avg = getAverage(x,y);
+      if(avg >= 205) setPixel(x, y, 170, 230, 220);
+      else if(avg >=155)  setPixel(x, y, 105, 150, 210);
+      else if(avg >=105)  setPixel(x, y, 120, 180, 60);
+      else if(avg >=55)  setPixel(x, y, 130, 30, 130);
+      else  setPixel(x, y, 90, 10, 50);
+    }
+  }
+}
+
+function mirror(){
+  for(let x = 0; x<width; x++){
+    for(let y = 0; y<height; y++){
+      if (x<width/2){
+        getRGB(width-x, y);
+        setPixel(x, y, r, g, b);
+      }
+    }
+  }
+}
+
+function rotateImg(){
+  for(let x=0; x<width;x++){
+    for(let y = 0; y<height; y++){
+      getRGB(x, y)
+      if(x<width/2 && y< height/2)  setPixel(x+width/2, y, r, g, b);
+      else if(width/2 < x && y<height/2)  setPixel(x, y+width/2, r, g, b);
+      else if(width/2 < x && height/2 <y) setPixel(x-width/2, y, r, g, b);
+      else setPixel(x, y-height/2, r, g, b);
     }
   }
 }
