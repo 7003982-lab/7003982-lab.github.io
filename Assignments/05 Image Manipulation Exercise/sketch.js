@@ -20,20 +20,23 @@ async function loadAssets(){
   race = await loadImage("assets/race.jpg");
   nuit = await loadImage("assets/nuit.jpg");
   hand = await loadImage("assets/hand.jpg");
+  butterfly = await loadImage("assets/butterfly.jpg");
 }
 
 function draw() {
   background(220);
   //image(chip, 0, 0);
   //image(race, 0, 0);
-  //image(nuit, 0, 0);
-  image(hand, 0, 0);
+  image(nuit, 0, 0);
+  //image(hand, 0, 0);
+  //image(butterfly, 0, 0)
   loadPixels();
   //mainColor();
   //noGreen();
   //fiveColor();
   //mirror();
-  rotateImg();
+  //rotateImg();
+  xBlur();
   updatePixels();
 }
 
@@ -122,13 +125,44 @@ function mirror(){
 }
 
 function rotateImg(){
+  let srcPixels = structuredClone(pixels);
   for(let x=0; x<width;x++){
     for(let y = 0; y<height; y++){
-      getRGB(x, y)
+      i = (width*y+x)*4;
+      r = srcPixels[i];
+      g = srcPixels[i+1];
+      b = srcPixels[i+2];
       if(x<width/2 && y< height/2)  setPixel(x+width/2, y, r, g, b);
-      else if(width/2 < x && y<height/2)  setPixel(x, y+width/2, r, g, b);
+      else if(width/2 < x && y<height/2)  setPixel(x, y+height/2, r, g, b);
       else if(width/2 < x && height/2 <y) setPixel(x-width/2, y, r, g, b);
       else setPixel(x, y-height/2, r, g, b);
+    }
+  }
+}
+
+function getAverageR(x, y, r){
+
+}
+
+function xBlur(){
+  let srcPixels = structuredClone(pixels);
+  let radius = 5;
+  for(let x=0; x<width;x++){
+    for(let y = 0; y<height; y++){
+      
+      i = (width*y+x)*4;
+      r = srcPixels[i];
+      g = srcPixels[i+1];
+      b = srcPixels[i+2];
+      let sumR = r;
+      let sumG = g;
+      let sumB = b;
+      for (let r = -radius; r<= radius; r++){
+        i = (width*(y+r)+(x+r))*4;
+        sumR += srcPixels[i];
+        sumG += srcPixels[i+1];
+        sumB += srcPixels[i+2];
+      }
     }
   }
 }
