@@ -146,7 +146,7 @@ function getAverageR(x, y, r){
 
 function xBlur(){
   let srcPixels = structuredClone(pixels);
-  let radius = 10;
+  let radius = 50;
   for(let x=0; x<width;x++){
     for(let y = 0; y<height; y++){
       
@@ -159,13 +159,18 @@ function xBlur(){
       let sumB = b;
       for (let r = -radius; r<= radius; r++){
         i = (width*(y+r)+(x+r))*4;
-        sumR += srcPixels[i];
-        sumG += srcPixels[i+1];
-        sumB += srcPixels[i+2];
+        if (i>=0 && i<pixels.length){
+          sumR += srcPixels[i];
+          sumG += srcPixels[i+1];
+          sumB += srcPixels[i+2];
+        }
+        
         i = (width*(y-r)+(x+r))*4
-        sumR += srcPixels[i];
-        sumG += srcPixels[i+1];
-        sumB += srcPixels[i+2];
+        if (i>=0 && i<pixels.length){
+          sumR += srcPixels[i];
+          sumG += srcPixels[i+1];
+          sumB += srcPixels[i+2];
+        }
       }
       let avgR = sumR/(radius*4);
       let avgG = sumG/(radius*4);
