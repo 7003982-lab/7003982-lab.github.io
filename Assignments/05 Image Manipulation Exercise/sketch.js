@@ -69,9 +69,6 @@ function getRGB(x, y){
   b = pixels[i+2];
 }
 
-
-
-
 function mainColor(){
   for(let x =0; x<width; x++){
     for(let y =0; y<width; y++){
@@ -114,6 +111,7 @@ function fiveColor(){
 }
 
 function mirror(){
+  // Mirror the right side of the image on the left
   for(let x = 0; x<width; x++){
     for(let y = 0; y<height; y++){
       if (x<width/2){
@@ -125,6 +123,7 @@ function mirror(){
 }
 
 function rotateImg(){
+  // Split image into 4 quardrants, rotate each quadrant clockwise
   let srcPixels = structuredClone(pixels);
   for(let x=0; x<width;x++){
     for(let y = 0; y<height; y++){
@@ -138,10 +137,6 @@ function rotateImg(){
       else setPixel(x, y-height/2, r, g, b);
     }
   }
-}
-
-function getAverageR(x, y, r){
-
 }
 
 function xBlur(){
@@ -164,8 +159,7 @@ function xBlur(){
           sumG += srcPixels[i+1];
           sumB += srcPixels[i+2];
         }
-        
-        i = (width*(y-r)+(x+r))*4
+        i = (width*(y-r)+(x+r))*4;
         if (i>=0 && i<pixels.length){
           sumR += srcPixels[i];
           sumG += srcPixels[i+1];
